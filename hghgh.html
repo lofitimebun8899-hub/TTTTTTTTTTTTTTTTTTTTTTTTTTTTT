@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>مدري شني </title>
+  <link href="https://fonts.googleapis.com/css2?family=Lateef&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Lateef', cursive;
+      background: linear-gradient(135deg, #3c096c, #9d4edd, #c77dff);
+      background-size: 400% 400%;
+      animation: bg 20s ease infinite;
+      color: white;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    @keyframes bg {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #ffd6ff;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #ffffff88;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .img-box {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 0 15px #ffffff55;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .img-box:hover {
+      transform: scale(1.05);
+    }
+
+    .img-box img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      padding: 20px;
+    }
+
+    .popup img {
+      max-width: 90%;
+      max-height: 70%;
+      border-radius: 20px;
+      box-shadow: 0 0 25px #ffffffaa;
+    }
+
+    .popup.active {
+      display: flex;
+    }
+
+    .popup .caption {
+      margin-top: 20px;
+      background-color: #ffffff11;
+      color: #ffd6ff;
+      font-size: 1.4rem;
+      padding: 15px 20px;
+      border-radius: 15px;
+      max-width: 90%;
+      text-align: right;
+      font-family: 'Lateef', cursive;
+      box-shadow: 0 0 10px #ffffff44 inset;
+    }
+
+    .back-btn {
+      margin-top: 40px;
+      padding: 12px 25px;
+      font-size: 1.4rem;
+      border-radius: 30px;
+      border: 2px solid white;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 0 10px #ffffff88;
+    }
+
+    .back-btn:hover {
+      background-color: #ffffff22;
+      color: #ffb3ec;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>
+    ....مدري شريد هنا بس راح احط الصور ضلي ضحكي كثيرا.<br>
+    تصدكين يحتاج اضيف صورنا ثنينه واحنه زعاطيط هعهع <br>
+    والقران التحديث الجاي اسويها معلي
+  </h1>
+
+  <div class="gallery">
+    <div class="img-box"><img src="الصور/1.jpg" alt="صورة 1" onclick="showPopup(this.src, 'هع اصغر صورة موجوده الي جان عمري هنا 8 اشهر هيعيهعي')"></div>
+    <div class="img-box"><img src="الصور/2.jpg" alt="صورة 2" onclick="showPopup(this.src, 'هنا جنت ابجي لان اخاف اصعد اجيب عنب هعه وجنت سمين كي')"></div>
+    <div class="img-box"><img src="الصور/3.jpg" alt="صورة 3" onclick="showPopup(this.src, 'هنا جنت كيوت هعهع')"></div>
+    <div class="img-box"><img src="الصور/4.jpg" alt="صورة 4" onclick="showPopup(this.src, 'صورة المدرسه من جنت بالمتوسط اول ماتسجلت بالمتوسطه')"></div>
+    <div class="img-box"><img src="الصور/5.jpg" alt="صورة 5" onclick="showPopup(this.src, 'هنا بالزياره واحد كي لابس ازرك مو اني ')"></div>
+    <div class="img-box"><img src="الصور/6.jpg" alt="صورة 6" onclick="showPopup(this.src, 'بهذا القفص جان وراي دب ...واعلف جبس )"></div>
+    <div class="img-box"><img src="الصور/7.jpg" alt="صورة 7" onclick="showPopup(this.src, 'مجرم جاي يلعب في مدينة العاب كركوك')"></div>
+    <div class="img-box"><img src="الصور/8.jpg" alt="صورة 8" onclick="showPopup(this.src, 'ادري الصورة مكلوبه مابيه حيل اعدل ...هاي الصورة وي الدب هم هعهع')"></div>
+    <div class="img-box"><img src="الصور/9.jpg" alt="صورة 9" onclick="showPopup(this.src, 'صورة بحديقتنه بكركوك ...هذا ابن عمتي معليج بي كي )"></div>
+  </div>
+
+  <div class="popup" id="popup" onclick="closePopup()">
+    <img src="" id="popup-img" alt="صورة مكبرة">
+    <div class="caption" id="popup-caption"></div>
+  </div>
+
+  <button class="back-btn" onclick="location.href='index.html'">🏠 رجوع للصفحة الرئيسية</button>
+
+  <script>
+    function showPopup(src, caption) {
+      document.getElementById("popup-img").src = src;
+      document.getElementById("popup-caption").innerText = caption;
+      document.getElementById("popup").classList.add("active");
+    }
+
+    function closePopup() {
+      document.getElementById("popup").classList.remove("active");
+    }
+  </script>
+
+</body>
+</html>

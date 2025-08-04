@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تحرشات</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: linear-gradient(135deg, #3c096c, #9d4edd, #c77dff);
+      background-size: 400% 400%;
+      animation: bgAnim 15s ease infinite;
+      overflow: hidden;
+      color: white;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    @keyframes bgAnim {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 90vw;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      z-index: 2;
+    }
+
+    .card h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #ffcccb;
+    }
+
+    .floating-emoji {
+      position: absolute;
+      top: 100vh;
+      font-size: 24px;
+      color: rgba(255,255,255,0.2);
+      animation: floatEmoji 10s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes floatEmoji {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>عادي اخذ حلك ؟
+    زين عادي بوسه من حلكج ...لبن يله هذا التحرش الخفيف 
+
+    الخفيف لو الثكيل هعهع
+    انجب ماتضحك
+    </h2>
+  </div>
+
+  <script>
+    function spawnEmoji() {
+      const emoji = document.createElement('div');
+      emoji.className = 'floating-emoji';
+      emoji.textContent = '🔞';
+      emoji.style.left = Math.random() * 100 + 'vw';
+      emoji.style.fontSize = (Math.random() * 30 + 15) + 'px';
+      emoji.style.animationDuration = (Math.random() * 8 + 4) + 's';
+      document.body.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 10000);
+    }
+    setInterval(spawnEmoji, 500);
+  </script>
+
+</body>
+</html>

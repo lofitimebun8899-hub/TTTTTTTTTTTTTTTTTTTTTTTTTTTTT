@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>لبننننننن</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lateef&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Lateef', cursive;
+      background: linear-gradient(135deg, #240046, #5a189a, #9d4edd);
+      background-size: 400% 400%;
+      animation: bg 20s ease infinite;
+      color: white;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    @keyframes bg {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #ffd6ff;
+      margin-bottom: 40px;
+      text-shadow: 0 0 10px #ffffff88;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin: 30px 0 15px;
+      color: #ffb3ec;
+      text-shadow: 0 0 5px #fff4;
+    }
+
+    .note {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      color: #ffffffcc;
+      background: #ffffff22;
+      padding: 15px;
+      border-radius: 15px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 0 10px #ffffff55;
+    }
+
+    .playlist {
+      margin-bottom: 60px;
+    }
+
+    .song {
+      background: #ffffff22;
+      border-radius: 15px;
+      padding: 15px;
+      margin: 10px auto;
+      max-width: 500px;
+      box-shadow: 0 0 10px #ffffff55;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.3s ease;
+    }
+
+    .song:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px #ffffff88;
+    }
+
+    .song-title {
+      font-size: 1.2rem;
+      flex: 1;
+      text-align: right;
+      padding-left: 10px;
+    }
+
+    .play-btn {
+      padding: 8px 18px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 20px;
+      background: #ff77e9;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s;
+    }
+
+    .play-btn:hover {
+      background: #ff33cc;
+      transform: scale(1.1);
+    }
+
+    .back-btn {
+      margin-top: 40px;
+      padding: 12px 25px;
+      font-size: 1.4rem;
+      border-radius: 30px;
+      border: 2px solid white;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 0 10px #ffffff88;
+    }
+
+    .back-btn:hover {
+      background-color: #ffffff22;
+      color: #ffb3ec;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="note">
+    توتييي الحلوه هاي الصفحه راح أضل أعدل بيها بين فتره وفتره وراح تبقه تحت التحديث لأن الحياة كي وسويتها تسليك وي جي بي تي 🥲💜
+  </div>
+
+  <h1>مدري ليش سويتها بس اهم شي اعبي محتوى فاااا اغاني تحبيها واحبها وبس هعهع</h1>
+
+  <div class="playlist">
+    <h2>💜 أغاني تحبها تومتي</h2>
+    <div class="song"><div class="song-title">Lana Del Rey - Young and Beautiful</div><button class="play-btn" onclick="playSong('https://www.youtube.com/watch?v=o_1aF54DO60')">تشغيل</button></div>
+    <div class="song"><div class="song-title">Lana Del Rey - Summertime Sadness</div><button class="play-btn" onclick="playSong('https://www.youtube.com/watch?v=nVjsGKrE6E8')">تشغيل</button></div>
+    <div class="song"><div class="song-title">Sabrina Carpenter - Espresso</div><button class="play-btn" onclick="playSong('https://www.youtube.com/watch?v=9mQk7Evt6Vs')">تشغيل</button></div>
+    <div class="song"><div class="song-title">Sabrina Carpenter - Feather</div><button class="play-btn" onclick="playSong('https://youtu.be/asew9BF1wdw?si=u9ELGLWUJaznk4qo')">تشغيل</button></div>
+    <div class="song"><div class="song-title">Måneskin - I WANNA BE YOUR SLAVE</div><button class="play-btn" onclick="playSong('https://www.youtube.com/watch?v=M6ZZKNPrSPw')">تشغيل</button></div>
+    <div class="song"><div class="song-title">Måneskin - Beggin'</div><button class="play-btn" onclick="playSong('https://www.youtube.com/watch?v=W2MpGCL8-9o')">تشغيل</button></div>
+    <div class="song"><div class="song-title">Billie Eilish - Lovely</div><button class="play-btn" onclick="playSong('https://www.youtube.com/watch?v=V1Pl8CzNzCw')">تشغيل</button></div>
+  </div>
+
+  <div class="playlist">
+    <h2>اغاني احبها اني ...مادري ليش</h2>
+    <div class="song"><div class="song-title">NEFFEX - TAKE OFF</div><button class="play-btn" onclick="playSong('https://www.youtube.com/watch?v=CvUxi35IdWM')">تشغيل</button></div>
+    <div class="song"><div class="song-title">NEFFEX - MODEST</div><button class="play-btn" onclick="playSong('https://www.youtube.com/watch?v=Ns4A5Trqpcs')">تشغيل</button></div>
+    <div class="song"><div class="song-title">NEFFEX - CHANGE</div><button class="play-btn" onclick="playSong('https://www.youtube.com/watch?v=K1-C7paZxp8')">تشغيل</button></div>
+    <div class="song"><div class="song-title">JAKE HILL - WASTE MY TIME</div><button class="play-btn" onclick="playSong('https://www.youtube.com/watch?v=Nt12nOzrY3U')">تشغيل</button></div>
+    <div class="song"><div class="song-title">JAKE HILL - NERVE</div><button class="play-btn" onclick="playSong('https://www.youtube.com/watch?v=CF2oeHBHdl4')">تشغيل</button></div>
+    <div class="song"><div class="song-title">Måneskin - I WANNA BE YOUR SLAVE</div><button class="play-btn" onclick="playSong('https://www.youtube.com/watch?v=M6ZZKNPrSPw')">تشغيل</button></div>
+    <div class="song"><div class="song-title">Frank Sinatra - Fly Me To The Moon</div><button class="play-btn" onclick="playSong('https://www.youtube.com/watch?v=ZEcqHA7dbwM')">تشغيل</button></div>
+    <div class="song"><div class="song-title">Frank Sinatra - Strangers In The Night</div><button class="play-btn" onclick="playSong('https://www.youtube.com/watch?v=R5t0vNrfqUo')">تشغيل</button></div>
+    <div class="song"><div class="song-title">Michael Bublé - Sway</div><button class="play-btn" onclick="playSong('https://www.youtube.com/watch?v=VmZ8pKZUVfY')">تشغيل</button></div>
+  </div>
+
+  <button class="back-btn" onclick="location.href='index.html'">🏠 رجوع للصفحة الرئيسية</button>
+
+  <script>
+    function playSong(url) {
+      window.open(url, '_blank');
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>فرع الغلابة - لعبة الحصان</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      overflow: hidden;
+      height: 100vh;
+      background: linear-gradient(-45deg, #b380ff, #800080, #cc66ff, #660066);
+      background-size: 400% 400%;
+      animation: bgMove 10s ease infinite;
+    }
+
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .word, .cherry {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.8;
+      pointer-events: none;
+      animation: floatUp 8s linear infinite;
+    }
+
+    .cherry {
+      font-size: 1.5rem;
+      opacity: 0.5;
+    }
+
+    @keyframes floatUp {
+      0% {
+        bottom: -40px;
+        transform: translateX(0);
+      }
+      100% {
+        bottom: 110vh;
+        transform: translateX(-50px);
+      }
+    }
+
+    #game {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+    }
+
+    #horse {
+      position: absolute;
+      left: 50px;
+      bottom: 0;
+      font-size: 4rem;
+      transform: scaleX(-1); /* يواجه العقبة */
+    }
+
+    .jump {
+      animation: jump 0.5s ease-out;
+    }
+
+    @keyframes jump {
+      0% { bottom: 0; }
+      50% { bottom: 160px; }
+      100% { bottom: 0; }
+    }
+
+    #obstacle {
+      position: absolute;
+      right: -60px;
+      bottom: 0;
+      font-size: 3rem;
+      animation: moveObs 3s linear infinite;
+    }
+
+    @keyframes moveObs {
+      from { right: -60px; }
+      to { right: 100%; }
+    }
+
+    #score {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 1.5rem;
+      color: #fff;
+    }
+
+    #gameOver {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #99004d;
+      color: white;
+      padding: 30px 50px;
+      border-radius: 10px;
+      display: none;
+      text-align: center;
+    }
+
+    #gameOver button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #ff66b3;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="game">
+    <div id="horse">🐎</div>
+    <div id="obstacle">🙂</div>
+    <div id="score">النقاط: 0</div>
+    <div id="gameOver">
+      انتهت اللعبة!
+      <br />
+      <button onclick="restartGame(event)">إعادة</button>
+    </div>
+  </div>
+
+  <script>
+    const horse = document.getElementById('horse');
+    const obstacle = document.getElementById('obstacle');
+    const scoreText = document.getElementById('score');
+    const gameOverBox = document.getElementById('gameOver');
+    const words = ["احبج", "عمري انت", "قلبي انت", "حياتي انت", "اموت عليج"];
+
+    let score = 0;
+    let running = true;
+
+    function jump() {
+      if (!running) return;
+      if (!horse.classList.contains('jump')) {
+        horse.classList.add('jump');
+        setTimeout(() => {
+          horse.classList.remove('jump');
+        }, 500);
+      }
+    }
+
+    function checkCollision() {
+      const horseRect = horse.getBoundingClientRect();
+      const obstacleRect = obstacle.getBoundingClientRect();
+
+      // تصغير بوكس الاصطدام للعقبة لتقليل الأخطاء
+      const obstacleRectAdjusted = {
+        top: obstacleRect.top + 15,
+        bottom: obstacleRect.bottom - 5,
+        left: obstacleRect.left + 10,
+        right: obstacleRect.right - 10,
+      };
+
+      const isCollision = !(
+        horseRect.right < obstacleRectAdjusted.left ||
+        horseRect.left > obstacleRectAdjusted.right ||
+        horseRect.bottom < obstacleRectAdjusted.top ||
+        horseRect.top > obstacleRectAdjusted.bottom
+      );
+
+      if (isCollision) {
+        gameOver();
+      } else {
+        score++;
+        scoreText.innerText = "النقاط: " + Math.floor(score / 10);
+      }
+    }
+
+    function gameOver() {
+      running = false;
+      obstacle.style.animationPlayState = 'paused';
+      gameOverBox.style.display = 'block';
+    }
+
+    function restartGame(e) {
+      e.stopPropagation();
+      score = 0;
+      running = true;
+      scoreText.innerText = "النقاط: 0";
+      gameOverBox.style.display = 'none';
+      obstacle.style.animation = 'none';
+      void obstacle.offsetWidth;
+      obstacle.style.animation = 'moveObs 3s linear infinite';
+    }
+
+    setInterval(() => {
+      if (running) checkCollision();
+    }, 80);
+
+    // التحكم بالقفز بزر المسافة
+    document.addEventListener("keydown", function (e) {
+      if (e.code === "Space") {
+        jump();
+      }
+    });
+
+    // خلفية كلمات حب متفرقة
+    function createWord() {
+      const word = document.createElement("div");
+      word.classList.add("word");
+      word.innerText = words[Math.floor(Math.random() * words.length)];
+      word.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(word);
+
+      setTimeout(() => {
+        word.remove();
+      }, 8000);
+    }
+
+    setInterval(() => {
+      if (running) createWord();
+    }, 4000); // كلمة كل 4 ثواني
+
+    // كرز متحرك عشوائي بالخلفية
+    function createCherry() {
+      const cherry = document.createElement("div");
+      cherry.classList.add("cherry");
+      cherry.innerText = "🍒";
+      cherry.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(cherry);
+
+      setTimeout(() => {
+        cherry.remove();
+      }, 8000);
+    }
+
+    setInterval(() => {
+      if (running) createCherry();
+    }, 1000); // كرز كل ثانية
+  </script>
+</body>
+</html>

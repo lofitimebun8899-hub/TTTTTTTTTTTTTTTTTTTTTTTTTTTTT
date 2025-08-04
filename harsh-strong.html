@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تحرشات قوية 🔥</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lateef&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Lateef', cursive;
+      background: radial-gradient(circle, #ff6600, #990000, #330000);
+      background-size: 200% 200%;
+      animation: fireDance 5s linear infinite;
+      overflow-x: hidden;
+      color: white;
+      text-align: center;
+      padding: 10vh 5vw;
+    }
+
+    @keyframes fireDance {
+      0% {background-position: 0% 50%;}
+      25% {background-position: 50% 100%;}
+      50% {background-position: 100% 50%;}
+      75% {background-position: 50% 0%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .emoji-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .emoji, .bg-text {
+      position: absolute;
+      font-size: 2rem;
+      animation: floatUp 8s linear forwards;
+      opacity: 0.4;
+      white-space: nowrap;
+    }
+
+    .bg-text {
+      color: #ffbbbb;
+      font-weight: bold;
+      text-shadow: 2px 2px 6px #000;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+      30% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh);
+        opacity: 0;
+      }
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 30px;
+      border-radius: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 2rem;
+      line-height: 3rem;
+      box-shadow: 0 0 50px rgba(255, 100, 0, 0.7);
+      white-space: pre-line;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .card::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .card::-webkit-scrollbar-thumb {
+      background-color: rgba(255,255,255,0.3);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="emoji-bg" id="emoji-bg"></div>
+
+  <div class="card">
+    تدرين مشتاقلج
+
+    كون هسه يعني الكومبو الاول اويليييي
+    ويا بوسه عله حلكج الحلو الي اموت علي 
+    ويا شبكه ماتخلص منا لباجر
+    ويا بوسه عله خدج الحلو
+    ويا نومه بغرفه بارده وانت فوكي
+    ويا احبج واموت عليج واعشقج واروحلج فدوه اني واهلي واموت عليج واعشقج واموت بيج 
+    وياااااااااااااا وعزاااااااااااا...
+
+    ادري بيج منتظره تحرش بي حظ بس ماكو هذا بس بالصفحه الجايه هعهعيهيهع
+  </div>
+
+  <script>
+    const emojiContainer = document.getElementById('emoji-bg');
+
+    const bgTexts = [
+      "اوف شهلجمال يحلو؟🔥",
+      "باع الخصر اويلي ",
+      "هعهعهعهعهع هسه اني مقتنع مسوي صفحة تحرشات",
+      "احبج توتاتي ",
+      "انت كي اذا ماضحكتي ",
+      "شايفه لو الزمج ؟....كلشي ماسوي",
+      "ادبدزززز ليش طبيتي هنا ",
+      "تحرشات وكذا 😉🔥🔞",
+      "احبج طلعي ترا هاي الصفحه تخليج تتحمسين",
+      "لبن 🥛🔥💀",
+      "تدرين اليوم لعبة برشلونةةةةةة؟؟؟؟؟"
+    ];
+
+    function createFloatingEmoji() {
+      const emoji = document.createElement('div');
+      emoji.className = 'emoji';
+      emoji.innerText = '🔞';
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight;
+      emoji.style.left = x + 'px';
+      emoji.style.top = y + 'px';
+      emoji.style.fontSize = (Math.random() * 30 + 20) + 'px';
+      emoji.style.animationDuration = (Math.random() * 4 + 4) + 's';
+      emojiContainer.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 10000);
+    }
+
+    function createFloatingText() {
+      const text = document.createElement('div');
+      text.className = 'bg-text';
+      text.innerText = bgTexts[Math.floor(Math.random() * bgTexts.length)];
+      const x = Math.random() * (window.innerWidth - 300);
+      const y = Math.random() * window.innerHeight;
+      text.style.left = x + 'px';
+      text.style.top = y + 'px';
+      text.style.fontSize = (Math.random() * 20 + 16) + 'px';
+      text.style.animationDuration = (Math.random() * 10 + 5) + 's';
+      emojiContainer.appendChild(text);
+      setTimeout(() => text.remove(), 12000);
+    }
+
+    setInterval(createFloatingEmoji, 400);
+    setInterval(createFloatingText, 2000);
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>صفحة توتا الثانية 💜</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lateef&family=Reem+Kufi&family=Amiri&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: linear-gradient(135deg, #3c096c, #9d4edd, #c77dff);
+      background-size: 300% 300%;
+      animation: bgFlow 20s ease infinite;
+      font-family: 'Lateef', cursive;
+      overflow-x: hidden;
+      color: white;
+      text-align: center;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    @keyframes bgFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .section {
+      padding: 60px 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .buttons {
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .main-button {
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border-radius: 30px;
+      border: 2px solid white;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      transition: 0.4s ease;
+      box-shadow: 0 0 10px #ffffff88;
+    }
+
+    .main-button:hover {
+      background: #ffffff33;
+      color: #ffcccb;
+      transform: scale(1.08);
+    }
+
+    .giant-t {
+      font-size: 340px;
+      font-weight: bold;
+      color: #ffffff22;
+      font-family: 'Reem Kufi', sans-serif;
+      text-shadow: 0 0 40px #ff66cc88, 0 0 80px #ffffff55;
+      animation: glowPulse 2.5s ease-in-out infinite;
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .giant-t:hover {
+      color: #ffffff;
+      transform: scale(1.2) rotate(3deg);
+      text-shadow: 0 0 60px #ff99ff, 0 0 100px #ffccff, 0 0 120px #ffffff;
+    }
+
+    @keyframes glowPulse {
+      0% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.9; }
+    }
+
+    .note-card {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #4b007d;
+      color: #ffcaff;
+      padding: 20px 25px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px #ffffff66;
+      font-size: 1.1rem;
+      max-width: 320px;
+      z-index: 99;
+      line-height: 1.7;
+    }
+
+    .particle {
+      position: absolute;
+      pointer-events: none;
+      font-size: 20px;
+      animation: fly 1.2s ease-out forwards;
+      opacity: 1;
+      z-index: 9999;
+    }
+
+    @keyframes fly {
+      to {
+        transform: translate(var(--dx), var(--dy)) scale(0.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- الكارت - ملاحظة -->
+  <div class="note-card">
+    💡 <strong>ملاحظة حلوه مثلج:</strong><br>
+    المدري شنو 2 راح يضل يتحدث بين فتره وفتره، فااا عله يوم تدخلين للرابط تلكين بي شي مختلف أو اضافه جديده حسب أحداث الحياة هعيهعيعي.. أحبج توتي 💖
+  </div>
+
+  <!-- الجزء العلوي -->
+  <div class="section">
+    <h2>نورت حبيبت روحي</h2>
+    <p>صفحه كيوت مثلج يحلوه.. احبج توتي</p>
+
+    <div class="buttons">
+      <a href="games.html"><button class="main-button">🎮 الألعاب</button></a>
+      <a href="message.html"><button class="main-button">💌 رسالة خاصة (خليها للاخير عليج الله)</button></a>
+      <a href="dreams.html"><button class="main-button">🌙 احلامي الكي</button></a>
+      <a href="songs.html"><button class="main-button">🎵 أغاني</button></a>
+      <a href="hghgh.html"><button class="main-button">🤷‍♀️ مدري شنو </button></a>
+      <a href="index.html"><button class="main-button">🏡 الرئيسية</button></a>
+    </div>
+  </div>
+
+  <!-- حرف T العملاق -->
+  <div class="section">
+    <div class="giant-t" id="giantT">T</div>
+  </div>
+
+  <script>
+    const tEl = document.getElementById('giantT');
+    let particlesInterval;
+
+    function emitParticlesAt(x, y) {
+      const chars = ['❤️', 'احبج'];
+      for (let i = 0; i < 5; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.innerText = chars[Math.floor(Math.random() * chars.length)];
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 120 + 40;
+        const dx = Math.cos(angle) * distance + 'px';
+        const dy = Math.sin(angle) * distance + 'px';
+        p.style.left = x + 'px';
+        p.style.top = y + 'px';
+        p.style.setProperty('--dx', dx);
+        p.style.setProperty('--dy', dy);
+        p.style.color = ['#ff69b4','#ffffff','#ffc0cb','#ff99cc'][Math.floor(Math.random()*4)];
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 1200);
+      }
+    }
+
+    tEl.addEventListener('mouseenter', () => {
+      particlesInterval = setInterval(() => {
+        const rect = tEl.getBoundingClientRect();
+        const x = rect.left + Math.random() * rect.width;
+        const y = rect.top + Math.random() * rect.height;
+        emitParticlesAt(x, y);
+      }, 100);
+    });
+
+    tEl.addEventListener('mousemove', e => {
+      const x = e.clientX;
+      const y = e.clientY;
+      emitParticlesAt(x, y);
+    });
+
+    tEl.addEventListener('mouseleave', () => {
+      clearInterval(particlesInterval);
+    });
+  </script>
+
+</body>
+</html>

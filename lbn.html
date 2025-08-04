@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>لـ T 😜</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: linear-gradient(135deg, #3c096c, #9d4edd, #c77dff);
+      background-size: 400% 400%;
+      animation: flowBG 15s ease infinite;
+      overflow: hidden;
+      color: white;
+      text-align: center;
+    }
+
+    @keyframes flowBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      padding-top: 18vh;
+      max-width: 90vw;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #ffcccb;
+      background: rgba(255,255,255,0.1);
+      padding: 20px 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      animation: fadeIn 2s ease;
+      margin-bottom: 40px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .btn-harsh {
+      padding: 14px 30px;
+      background-color: transparent;
+      border: 2px solid white;
+      border-radius: 30px;
+      color: #fff;
+      font-size: 1.6rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ffffff66;
+      transition: all 0.3s ease;
+      width: fit-content;
+    }
+
+    .btn-harsh:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #ffc2d1;
+      border-color: #ffc2d1;
+      transform: scale(1.07);
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .floating-heart {
+      position: absolute;
+      top: 100vh;
+      font-size: 20px;
+      color: rgba(255,255,255,0.2);
+      animation: floatUp 10s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      50% {opacity: 1;}
+      100% {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>شنو بس بوسه؟؟؟ قليل ترا تعاي اتحارش بيج (ايموجي شفه)</h1>
+
+    <div class="buttons">
+      <a href="harsh-light.html">
+        <button class="btn-harsh">تحارشات خفيفة</button>
+      </a>
+      <a href="harsh-medium.html">
+        <button class="btn-harsh">تحرشات وسط</button>
+      </a>
+      <a href="harsh-strong.html">
+        <button class="btn-harsh">تحرشات قوية هيهيهي</button>
+      </a>
+      <a href="harsh-global.html">
+        <button class="btn-harsh">تحرشات عالمية 🌍🔥</button>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    function spawnHearts() {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.textContent = '🔞';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (Math.random() * 30 + 15) + 'px';
+      heart.style.animationDuration = (Math.random() * 8 + 4) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 10000);
+    }
+
+    setInterval(spawnHearts, 500);
+  </script>
+
+</body>
+</html>

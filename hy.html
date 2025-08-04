@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>لعبة جمع الكرز 🍒</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Lateef', cursive, sans-serif;
+    background: linear-gradient(135deg, #3c096c, #9d4edd, #c77dff);
+    background-size: 300% 300%;
+    animation: bgAnim 20s ease infinite;
+    overflow: hidden;
+    color: white;
+    position: relative;
+    height: 100vh;
+  }
+
+  @keyframes bgAnim {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  #game-area {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  #basket {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 80px;
+    background: #ffcccb;
+    border-radius: 40px 40px 10px 10px;
+    box-shadow: inset 0 5px 10px #e94e4e;
+    z-index: 10;
+    transition: left 0.1s ease-out;
+  }
+
+  #basket::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 30px;
+    width: 60px;
+    height: 30px;
+    background: #ff6f91;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 3px 6px #e94e4e;
+  }
+
+  .cherry {
+    position: absolute;
+    top: -40px;
+    font-size: 30px;
+    user-select: none;
+    animation-timing-function: linear;
+  }
+
+  #score, #missed {
+    position: absolute;
+    right: 20px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #ffcccb;
+  }
+
+  #score {
+    top: 15px;
+    font-size: 22px;
+  }
+
+  #missed {
+    top: 50px;
+    font-size: 18px;
+    color: #ffaaaa;
+  }
+
+  #startBtn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    border: 3px solid white;
+    padding: 15px 40px;
+    font-size: 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    color: white;
+    box-shadow: 0 0 10px #fff;
+    transition: 0.3s ease;
+    z-index: 20;
+  }
+
+  #startBtn:hover {
+    background: #fff2f2;
+    color: #ff4e50;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  #gameOver {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+    color: white;
+    background: rgba(0,0,0,0.5);
+    padding: 20px 40px;
+    border-radius: 20px;
+    z-index: 30;
+    display: none;
+  }
+
+  .falling-word {
+    position: fixed;
+    color: #ffcccb;
+    font-weight: bold;
+    user-select: none;
+    pointer-events: none;
+    text-shadow: 0 0 5px #bb86fc, 0 0 10px #bb86fc;
+    z-index: 5;
+  }
+
+  .back-button {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    z-index: 1000;
+  }
+
+  .back-button button {
+    padding: 8px 20px;
+    font-size: 16px;
+    border-radius: 20px;
+    border: 2px solid white;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+  }
+
+  .back-button button:hover {
+    background: #ffffff22;
+  }
+</style>
+</head>
+<body>
+
+<div class="back-button">
+  <a href="games.html"><button>⬅️ رجوع</button></a>
+</div>
+
+<div id="game-area">
+  <div id="score">الكرز: 0</div>
+  <div id="missed">المفقود: 0 / 10</div>
+  <div id="basket"></div>
+  <button id="startBtn">ابدأ اللعبة</button>
+</div>
+
+<div id="gameOver">😢 انتهت اللعبة!<br><button onclick="location.reload()" style="margin-top: 10px;">🔁 إعادة</button></div>
+
+<script>
+  const gameArea = document.getElementById('game-area');
+  const basket = document.getElementById('basket');
+  const scoreDisplay = document.getElementById('score');
+  const missedDisplay = document.getElementById('missed');
+  const startBtn = document.getElementById('startBtn');
+  const gameOverDiv = document.getElementById('gameOver');
+
+  let score = 0;
+  let missed = 0;
+  let cherries = [];
+  let gameInterval;
+  let gameSpeed = 1200;
+  let isGameRunning = false;
+  const maxMissed = 10;
+
+  function moveBasket(x) {
+    const rect = gameArea.getBoundingClientRect();
+    let posX = x - rect.left;
+    posX = Math.max(60, Math.min(posX, rect.width - 60));
+    basket.style.left = posX + 'px';
+  }
+
+  function moveBasketBy(offset) {
+    let left = parseFloat(basket.style.left) || gameArea.clientWidth / 2;
+    basket.style.left = Math.max(60, Math.min(left + offset, gameArea.clientWidth - 60)) + 'px';
+  }
+
+  function createCherry() {
+    const cherry = document.createElement('div');
+    cherry.className = 'cherry';
+    cherry.innerText = '🍒';
+    cherry.style.left = Math.random() * (window.innerWidth - 40) + 'px';
+    cherry.style.top = '-40px';
+    cherry.fallSpeed = Math.random() * 0.5 + 1;
+    gameArea.appendChild(cherry);
+    cherries.push(cherry);
+  }
+
+  function updateCherries() {
+    for (let i = cherries.length - 1; i >= 0; i--) {
+      const cherry = cherries[i];
+      let top = parseFloat(cherry.style.top);
+      top += cherry.fallSpeed;
+      cherry.style.top = top + 'px';
+
+      const cherryRect = cherry.getBoundingClientRect();
+      const basketRect = basket.getBoundingClientRect();
+
+      if (
+        cherryRect.bottom >= basketRect.top &&
+        cherryRect.left + cherryRect.width / 2 >= basketRect.left &&
+        cherryRect.right - cherryRect.width / 2 <= basketRect.right
+      ) {
+        score++;
+        scoreDisplay.textContent = `الكرز: ${score}`;
+        cherry.remove();
+        cherries.splice(i, 1);
+
+        if (score % 10 === 0 && gameSpeed > 300) {
+          clearInterval(gameInterval);
+          gameSpeed -= 100;
+          gameInterval = setInterval(() => createCherry(), gameSpeed);
+        }
+      } else if (top > window.innerHeight) {
+        missed++;
+        missedDisplay.textContent = `المفقود: ${missed} / ${maxMissed}`;
+        cherry.remove();
+        cherries.splice(i, 1);
+        if (missed >= maxMissed) endGame();
+      }
+    }
+  }
+
+  function endGame() {
+    isGameRunning = false;
+    clearInterval(gameInterval);
+    gameOverDiv.style.display = 'block';
+  }
+
+  const words = [
+    "احبج تومتي", "احبج", "اشتاقيتلج", "احبججججج توتيي",
+    "ليش عيونج حلوه؟", "شهلجمال؟", "احبنججج", "مرتيييي",
+    "اريد حلك", "لبن"
+  ];
+
+  let currentWordDiv = null;
+
+  function spawnSingleWord() {
+    if (currentWordDiv) {
+      currentWordDiv.remove();
+      currentWordDiv = null;
+    }
+
+    const wordDiv = document.createElement('div');
+    wordDiv.className = 'falling-word';
+    wordDiv.innerText = words[Math.floor(Math.random() * words.length)];
+
+    wordDiv.style.fontSize = (Math.random() * 18 + 14) + 'px';
+    wordDiv.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+    wordDiv.style.top = '-30px';
+
+    const fallDuration = 15000;
+
+    document.body.appendChild(wordDiv);
+    currentWordDiv = wordDiv;
+
+    let start = null;
+    function fall(timestamp) {
+      if (!start) start = timestamp;
+      const elapsed = timestamp - start;
+      const progress = elapsed / fallDuration;
+
+      if (progress < 1) {
+        wordDiv.style.top = progress * (window.innerHeight + 30) - 30 + 'px';
+        requestAnimationFrame(fall);
+      } else {
+        wordDiv.remove();
+        currentWordDiv = null;
+      }
+    }
+    requestAnimationFrame(fall);
+  }
+
+  setInterval(() => {
+    if (!currentWordDiv) spawnSingleWord();
+  }, 2500);
+
+  startBtn.onclick = () => {
+    if (isGameRunning) return;
+    isGameRunning = true;
+    score = 0;
+    missed = 0;
+    gameSpeed = 1200;
+    scoreDisplay.textContent = `الكرز: 0`;
+    missedDisplay.textContent = `المفقود: 0 / ${maxMissed}`;
+    startBtn.style.display = 'none';
+
+    gameInterval = setInterval(() => createCherry(), gameSpeed);
+
+    function gameLoop() {
+      updateCherries();
+      if (isGameRunning) requestAnimationFrame(gameLoop);
+    }
+    requestAnimationFrame(gameLoop);
+
+    window.addEventListener('mousemove', (e) => moveBasket(e.clientX));
+    window.addEventListener('touchmove', (e) => moveBasket(e.touches[0].clientX), { passive: true });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') moveBasketBy(-40);
+      if (e.key === 'ArrowRight') moveBasketBy(40);
+    });
+  };
+</script>
+
+</body>
+</html>
